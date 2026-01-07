@@ -25,19 +25,33 @@
 					scrt2URL: 'https://orgfarm-d116344813-dev-ed.develop.my.salesforce-scrt.com'
 				}
 			);
+			embeddedservice_bootstrap.settings.onMessageReceived = function(message) {
+            if(message.from === 'agent' && isTabHidden) {
+                new Notification("New message from Agent", {
+                    body: message.text,
+                    icon: "chat-icon.png"
+                });
+            }
+        };
 		} catch (err) {
 			console.error('Error loading Embedded Messaging: ', err);
 		}
 	};
 </script>
 <script type='text/javascript' src='https://orgfarm-d116344813-dev-ed.develop.my.site.com/ESWAviMessagingChannel1767592713786/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
+
 <script>
+
   console.log("CUSTOM JS LOADED FROM GITHUB");
   let isTabHidden = false;
 
 document.addEventListener("visibilitychange", function() {
     isTabHidden = document.hidden;
 });
+if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+}
 function onNewMessage(message) {
     // Check if message is from the agent
     if(message.from === 'agent' && isTabHidden){
@@ -48,6 +62,16 @@ function onNewMessage(message) {
     // Display message in chat as usual
     displayMessage(message);
 }
+if (isTabHidden && Notification.permission === "granted") {
+    new Notification("New message from Agent", {
+        body: message.text,
+        icon: "chat-icon.png"
+    });
+}
+if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+}
+
 
 </script>
 
