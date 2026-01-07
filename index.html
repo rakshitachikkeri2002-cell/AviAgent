@@ -21,4 +21,10 @@
 <script>
   console.log("CUSTOM JS LOADED FROM GITHUB");
 </script>
+<script>
+  window.addEventListener("onEmbeddedMessagingMessageReceived", function (event) {
+    console.log("MESSAGE RECEIVED FROM CHAT:", event.detail);
+  });
+</script>
+
 
