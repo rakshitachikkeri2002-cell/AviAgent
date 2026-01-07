@@ -1,5 +1,15 @@
-<h1>Avi agent</h1>
-<script type='text/javascript'>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
+
+	<h1>Avi agent</h1>
+   <script type='text/javascript'>
 	console.log("Live Agent script is loaded!");
 	console.log('fbrhjfbrju');
 	console.log('Hiiii')
@@ -23,7 +33,23 @@
 <script type='text/javascript' src='https://orgfarm-d116344813-dev-ed.develop.my.site.com/ESWAviMessagingChannel1767592713786/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 <script>
   console.log("CUSTOM JS LOADED FROM GITHUB");
+  let isTabHidden = false;
+
+document.addEventListener("visibilitychange", function() {
+    isTabHidden = document.hidden;
+});
+function onNewMessage(message) {
+    // Check if message is from the agent
+    if(message.from === 'agent' && isTabHidden){
+        // Play sound
+        document.getElementById('notificationSound').play();
+    }
+
+    // Display message in chat as usual
+    displayMessage(message);
+}
+
 </script>
 
-
-
+</body>
+</html>
